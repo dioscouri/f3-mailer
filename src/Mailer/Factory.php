@@ -1,12 +1,12 @@
 <?php
 /**
- * @package fe-mailer
+ * @package f3-mailer
  * @author  Dioscouri Design
  * @link    http://www.dioscouri.com
  * @copyright Copyright (C) 2007 Dioscouri Design. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  */
-
+namespace Mailer;
  
 class Bottle extends \Prefab {
 
@@ -61,50 +61,10 @@ class Bottle extends \Prefab {
         $this->ccHolder   = array();
         $this->event = new stdClass;
         $this->sender_id = 0;
-        $this->option = JRequest::getCmd('option');
-        $this->view = JRequest::getCmd('view');
-        
+        $this->app = \Base::instance()->get('APP_NAME');
+        $this->route = \Base::instance()->get('PARAMS.0');  
     }
     
-    /**
-      * sets the email view, the view that generated the email
-      * @todo 
-      * @example $this->setView($title);
-      * @param string
-      * @since 0.1
-      * @return 
-      * 
-      */
-
-    function setView($view) {
-
-      $this->view = $view;
-
-      if(empty($view) && empty($this->view) ) {
-       $this->view = JRequest::getCmd('view');
-      }
-      return $this;
-    }
-
-    /**
-      * sets the email option, the option that genated the email
-      * @todo 
-      * @example $this->setOption($title);
-      * @param string
-      * @since 0.1
-      * @return 
-      * 
-      */
-
-    function setOption($option) {
-      $this->option = $option;
-
-      if(empty($option) && empty($this->option) ) {
-       $this->option = JRequest::getCmd('option');
-      }
-      return $this;
-    }    
-
     /**
       * sets the email title
       * @todo 
@@ -195,13 +155,15 @@ class Bottle extends \Prefab {
             $this->setSenderEmail($from);
         } 
         elseif (is_numeric($from)) {
-       
-            $user  = JFactory::getUser($from);
+            
+            //TODO route to f3-users?
 
-            $this->setSenderid($user->id);
+         //   $user  = JFactory::getUser($from);
 
-            $this->setSenderName($user->name);
-            $this->setSenderEmail($user->email);
+          //  $this->setSenderid($user->id);
+
+          //  $this->setSenderName($user->name);
+          //  $this->setSenderEmail($user->email);
 
         } 
         return $this;
@@ -511,7 +473,10 @@ class Bottle extends \Prefab {
       */
 
     function saveAttachments($email_id) {
-       JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_messagebottle/tables');
+      
+
+
+       /*JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_messagebottle/tables');
        $table = JTable::getInstance('Attachments', 'MessagebottleTable');
       foreach ($this->attachments as $attachment) {
         $keys = array('email_id' => $email_id, 'path' => $attachment['path'] );
@@ -519,7 +484,7 @@ class Bottle extends \Prefab {
         $table->email_id = $email_id;
         $table->path = $attachment['path'];
         $table->store();
-      }
+      }*/
     }
     
      /**
@@ -567,12 +532,10 @@ class Bottle extends \Prefab {
 
 
     function prepareData() {
-        $this->bcc = serialize($this->bccHolder);
+        $this->bcc = $this->bccHolder;
      
-        $this->cc = serialize($this->ccHolder);
+        $this->cc = $this->ccHolder;
 
-        $this->setView('');
-        $this->setOption('');
         
         //fix for bad naming conventions
         if(empty($this->Body) && !empty($this->body)) {
