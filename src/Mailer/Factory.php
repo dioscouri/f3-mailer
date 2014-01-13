@@ -26,7 +26,6 @@ class Bottle extends \Prefab {
     var $bcc = null; //text Serialize data
     var $cc = null; //text Serialize data
     var $title = null; //varchar
-    var $Body = null; //longtext
     var $body = null; //longtext
     var $altbody = null; //longtext
     var $scope_id = null; //int
@@ -88,7 +87,7 @@ class Bottle extends \Prefab {
       * 
       */
     function setBody($body) {
-        $this->Body = $body;
+        $this->body = $body;
         return $this;
     }
       /**
@@ -319,33 +318,6 @@ class Bottle extends \Prefab {
     }
 
     /**
-      * events are part of advanced custom ingegration features, create the event, and return the ID so we can  assign emails to specific events
-      *
-      * @todo   implement this farther
-      * @example $this->createEvent($title);
-      * @param string
-      * @since 0.1
-      * @return (int) event_id
-      * 
-      */
-    function createEvent() {
-
-
-      if(@$this->event->event_id || @$this->event->title) {
-      $this->event->scope_id = $this->scope_id; 
-      $this->event->object_id = $this->object_id; 
-      $this->event->parent_object_id = $this->parent_object_id; 
-      $this->event->sender_id = $this->sender_id; 
-      JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_messagebottle/tables');
-        $table = JTable::getInstance('Events', 'MessagebottleTable');
-        $table->bind($this->event) ;
-        $table->save();
-        return $table->event_id; 
-
-       }
-    }
-
-    /**
       *  adds the lists of users to the email being created, however it stores a row for each  email added here as there own row.
       *
       * @todo   implement this farther
@@ -538,13 +510,13 @@ class Bottle extends \Prefab {
 
         
         //fix for bad naming conventions
-        if(empty($this->Body) && !empty($this->body)) {
-          $this->Body = $this->body;
+        if(empty($this->body) && !empty($this->body)) {
+          $this->body = $this->body;
         }
 
         if ($this->isHtml) {
-                if($this->htmlTest($this->Body)) {
-                  $this->Body = $this->formatHtml( $this->Body );
+                if($this->htmlTest($this->body)) {
+                  $this->body = $this->formatHtml( $this->body );
                 } 
         }
         
@@ -566,32 +538,31 @@ class Bottle extends \Prefab {
      function queue() {
         $this->prepareData();
         
-        $event_id = $this->createEvent();
-
         //each person gets their own email.
         foreach ($this->recipients as $receiver) {
             
             $model = new \Mailer\Models\Emails;
 
 
-            JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_messagebottle/tables');
+            /*JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_messagebottle/tables');
             $table = JTable::getInstance('Emails', 'MessagebottleTable');
             $table->bind($this);
-            $table->body = $this->Body;
+            $table->body = $this->body;
+
               if(@$event_id) {
                  $table->event_id    = $event_id;  
               }
               $table->receiver_id    = $receiver['receiver_id'];
               $table->receiver_name  = $receiver['receiver_name'];
               $table->receiver_email = $receiver['receiver_email'];
-               if ($table->store())  { 
+              if ($table->store())  { 
 
                  JPluginHelper::importPlugin( 'messagebottle', null, true, null);
                  $dispatcher = JDispatcher::getInstance();
                  $dispatcher->trigger( 'AfterMessageBottleQueueEmail', array( $table ) );
                   
                }
-              
+              */
               
         }
 
