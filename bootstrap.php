@@ -20,9 +20,10 @@ switch ($global_app_name)
         $f3->route('DELETE /admin/email/@id', '\Mailer\Admin\Controllers\Email->delete');
         $f3->route('GET /admin/email/delete/@id', '\Mailer\Admin\Controllers\Email->delete');        
       
-        // append this app's UI folder to the path, e.g. UI=../apps/blog/admin/views/
-        
-        // TODO set some app-specific settings, if desired
+        // append this app's UI folder to the path
+        // new way
+        \Dsc\System::instance()->get('theme')->registerViewPath( __dir__ . '/src/Mailer/Admin/Views/', 'Mailer/Admin/Views' );
+        // old way
         $ui = $f3->get('UI');
         $ui .= ";" . $f3->get('PATH_ROOT') . "vendor/dioscouri/f3-mailer/src/Mailer/Admin/Views/";
         $f3->set('UI', $ui);
