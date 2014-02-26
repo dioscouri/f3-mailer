@@ -7,19 +7,9 @@ switch ($global_app_name)
     case "admin":
         // register event listener
         \Dsc\System::instance()->getDispatcher()->addListener(\Mailer\Listener::instance());
-        
-        // register all the routes
-        $f3->route('GET|POST /admin/emails', '\Mailer\Admin\Controllers\Emails->display');
-        $f3->route('GET|POST /admin/emails/@page', '\Mailer\Admin\Controllers\Emails->display');
-        $f3->route('GET|POST /admin/emails/delete', '\Mailer\Admin\Controllers\Emails->delete');
-        $f3->route('GET /admin/email', '\Mailer\Admin\Controllers\Email->create');
-        $f3->route('POST /admin/email', '\Mailer\Admin\Controllers\Email->add');
-        $f3->route('GET /admin/email/@id', '\Mailer\Admin\Controllers\Email->read');
-        $f3->route('GET /admin/email/edit/@id', '\Mailer\Admin\Controllers\Email->edit');
-        $f3->route('POST /admin/email/@id', '\Mailer\Admin\Controllers\Email->update');
-        $f3->route('DELETE /admin/email/@id', '\Mailer\Admin\Controllers\Email->delete');
-        $f3->route('GET /admin/email/delete/@id', '\Mailer\Admin\Controllers\Email->delete');        
       
+    	// register all the routes
+    	\Dsc\System::instance()->get('router')->mount( new \Mailer\Admin\Routes );
         // append this app's UI folder to the path
         // new way
         \Dsc\System::instance()->get('theme')->registerViewPath( __dir__ . '/src/Mailer/Admin/Views/', 'Mailer/Admin/Views' );
