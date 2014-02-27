@@ -24,54 +24,9 @@ class Routes extends \Dsc\Routes\Group{
 				)
 		);
 		
-		$this->add( '/emails', array('GET', 'POST'), array(
-								'controller' => 'Emails',
-								'action' => 'display'
-								));
-
-		$this->add( '/emails/@page', array('GET', 'POST'), array(
-				'controller' => 'Emails',
-				'action' => 'display'
-		));
-
-		$this->add( '/emails/delete', array('GET', 'POST'), array(
-				'controller' => 'Emails',
-				'action' => 'delete'
-		));
-
-		$this->add( '/email', 'GET', array(
-				'controller' => 'Email',
-				'action' => 'create'
-		));
-
-		$this->add( '/email', 'POST', array(
-				'controller' => 'Email',
-				'action' => 'add'
-		));
-
-		$this->add( '/email/@id', 'GET', array(
-				'controller' => 'Email',
-				'action' => 'read'
-		));
-
-		$this->add( '/email/edit/@id', 'GET', array(
-				'controller' => 'Email',
-				'action' => 'edit'
-		));
-
-		$this->add( '/email/@id', 'POST', array(
-				'controller' => 'Email',
-				'action' => 'update'
-		));
-
-		$this->add( '/email/email/@id', 'DELETE', array(
-				'controller' => 'Email',
-				'action' => 'delete'
-		));
-
-		$this->add( '/email/delete/@id', 'GET', array(
-				'controller' => 'Email',
-				'action' => 'delete'
-		));
+		// uncomment this, if you add settings
+		// $this->addSettingsRoutes( '/emails' );
+		$this->addCrudList( 'Emails' );
+		$this->addCrudItem( 'Email' );
 	}
 }
