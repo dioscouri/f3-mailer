@@ -9,7 +9,7 @@ switch ($global_app_name)
         \Dsc\System::instance()->getDispatcher()->addListener(\Mailer\Listener::instance());
       
     	// register all the routes
-    	\Dsc\System::instance()->get('router')->mount( new \Mailer\Admin\Routes );
+    	\Dsc\System::instance()->get('router')->mount( new \Mailer\Admin\Routes, 'mailer' );
         // append this app's UI folder to the path
         // new way
         \Dsc\System::instance()->get('theme')->registerViewPath( __dir__ . '/src/Mailer/Admin/Views/', 'Mailer/Admin/Views' );
