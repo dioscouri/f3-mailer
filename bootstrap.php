@@ -1,5 +1,5 @@
 <?php 
-class MailerBootstrap extends \Dsc\BaseBootstrap{
+class MailerBootstrap extends \Dsc\Bootstrap{
 	protected $dir = __DIR__;
 	protected $namespace = 'Mailer';
 	
