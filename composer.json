@@ -23,7 +23,8 @@
         "php": ">=5.4.0",
         "dioscouri/f3-lib": "dev-master",
         "dioscouri/f3-admin": "dev-master",
-        "mandrill/mandrill": "dev-master"
+        "mandrill/mandrill": "dev-master",
+        "phpmailer/phpmailer": ">=v5.2.7"
     },
     "autoload": {
         "psr-0": {
