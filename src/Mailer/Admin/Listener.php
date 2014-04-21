@@ -1,5 +1,5 @@
 <?php 
-namespace Mailer;
+namespace Mailer\Admin;
 
 class Listener extends \Prefab 
 {
@@ -9,14 +9,13 @@ class Listener extends \Prefab
         {
         	$mapper->reset();
         	$mapper->priority = 50;
-            $mapper->id = 'fa-mailer';
         	$mapper->title = 'Emails';
+        	$mapper->base = '/admin/mailer';
         	$mapper->route = '';
         	$mapper->icon = 'fa fa-envelope';
         	$mapper->children = array(
-        			json_decode(json_encode(array( 'title'=>'List', 'route'=>'/admin/emails', 'icon'=>'fa fa-list' )))
-        			,json_decode(json_encode(array( 'title'=>'Add New User', 'route'=>'/admin/email/create', 'icon'=>'fa fa-plus' )))
-        			,json_decode(json_encode(array( 'title'=>'Detail', 'route'=>'/admin/email/view', 'hidden'=>true )))
+        	        json_decode(json_encode(array( 'title'=>'Dashboard', 'route'=>'/admin/mailer', 'icon'=>'fa fa-dashboard' )))
+        			,json_decode(json_encode(array( 'title'=>'List', 'route'=>'/admin/mailer/emails', 'icon'=>'fa fa-list' )))
         	);
         	$mapper->save();
         	
