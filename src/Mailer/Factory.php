@@ -3,7 +3,7 @@ namespace Mailer;
 
 class Factory extends \Dsc\Singleton 
 {
-    protected $sender;
+    protected $__sender;        // an instance of some class that extends \Mailer\Abstracts\Sender
     
     public function __construct($config=array())
     {
@@ -63,5 +63,18 @@ class Factory extends \Dsc\Singleton
 	{
 	    // TODO Create a \Mailer\Email object and then static::queue() it
 	    // return the result 
+	}
+	
+	/**
+	 * Sets the global sender object if it's valid 
+	 * 
+	 * @param \Mailer\Abstracts\Sender $sender
+	 * @return \Mailer\Factory
+	 */
+	public function setSender( \Mailer\Abstracts\Sender $sender ) 
+	{
+		$this->__sender = $sender;
+		
+		return $this;
 	}
 }
