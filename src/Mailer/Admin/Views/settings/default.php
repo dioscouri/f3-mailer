@@ -15,6 +15,9 @@
                     <a href="#tab-general" data-toggle="tab"> General Settings </a>
                 </li>
                 <li>
+                    <a href="#tab-smtp" data-toggle="tab"> SMTP Settings </a>
+                </li>                
+                <li>
                     <a href="#tab-mandrill" data-toggle="tab"> Mandrill Settings </a>
                 </li>                
             </ul>
@@ -28,6 +31,17 @@
                     <h4>General Settings</h4>
                     
                     <hr />
+                    
+                    <div class="form-group">
+                        <label>Default Sender</label>
+                        <select name="general[sender]" class="form-control">
+                            <option value="mail" <?php if ($flash->old('general.sender') == 'mail') { echo "selected='selected'"; } ?>>PHP Mail</option>
+                            <option value="smtp" <?php if ($flash->old('general.sender') == 'smtp') { echo "selected='selected'"; } ?>>SMTP</option>
+                            <option value="sendmail" <?php if ($flash->old('general.sender') == 'sendmail') { echo "selected='selected'"; } ?>>Sendmail</option>
+                            <option value="mandrill" <?php if ($flash->old('general.sender') == 'mandrill') { echo "selected='selected'"; } ?>>Mandrill</option>
+                        </select>                        
+                    </div>
+                    <!-- /.form-group -->                    
                     
                     <div class="form-group">
                         <div class="row">
@@ -65,6 +79,42 @@
                     <!-- /.form-group -->
                 </div>
                 
+                <div class="tab-pane fade" id="tab-smtp">
+                    <h4>SMTP Settings</h4>
+                    
+                    <hr />
+                    
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label>SMTP Host</label>
+                                <input name="smtp[smtp_host]" placeholder="mail.example.com" value="<?php echo $flash->old('smtp.smtp_host'); ?>" class="form-control" type="text" />
+                            </div>
+                            <div class="col-md-2">
+                                <label>SMTP Port</label>
+                                <input name="smtp[smtp_port]" placeholder="Usually 25, 465, or 587" value="<?php echo $flash->old('smtp.smtp_host'); ?>" class="form-control" type="text" />
+                            </div>
+                            <div class="col-md-5">
+                                <label>SMTP Username</label>
+                                <input name="smtp[smtp_username]" placeholder="SMTP Username" value="<?php echo $flash->old('smtp.smtp_username'); ?>" class="form-control" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>SMTP Password</label>
+                                <input name="smtp[smtp_password]" placeholder="SMTP Password" value="<?php echo $flash->old('smtp.smtp_password'); ?>" class="form-control" type="text" />                              
+                            </div>
+                            <div class="col-md-9">
+                                                                
+                            </div>
+                        </div>                        
+                    </div>
+                    <!-- /.form-group -->                    
+                </div>
+                
                 <div class="tab-pane fade" id="tab-mandrill">
                     <h4>Mandrill Settings</h4>
                     
@@ -82,7 +132,7 @@
                             </div>
                             <div class="col-md-5">
                                 <label>SMTP Username</label>
-                                <input name="mandrill[smtp_username]" placeholder="Username" value="<?php echo $flash->old('mandrill.smtp_username'); ?>" class="form-control" type="text" />
+                                <input name="mandrill[smtp_username]" placeholder="SMTP Username" value="<?php echo $flash->old('mandrill.smtp_username'); ?>" class="form-control" type="text" />
                             </div>
                         </div>
                     </div>

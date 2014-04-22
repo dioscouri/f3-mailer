@@ -7,7 +7,7 @@ class Mandrill extends \Mailers\Abstracts\Sender
     
     public function __construct($exceptions = false)
     {
-        parent::__construct();
+        parent::__construct($exceptions);
     
         $settings = \Mailer\Models\Settings::fetch();
     
@@ -26,9 +26,9 @@ class Mandrill extends \Mailers\Abstracts\Sender
         	$this->IsSMTP();
         	$this->Host = $smtp_host;
         	$this->Port = $smtp_port;
-        	$this->SMTPAuth = true;                               // Enable SMTP authentication
-        	$this->Username = $smtp_username;                // SMTP username
-        	$this->Password = $smtp_password;                  // SMTP password
+        	$this->SMTPAuth = true;
+        	$this->Username = $smtp_username;
+        	$this->Password = $smtp_password;
         	$this->SMTPSecure = 'tls';        	        	
         }
         else 

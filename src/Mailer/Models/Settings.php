@@ -11,6 +11,10 @@ class Settings extends \Dsc\Mongo\Collections\Settings
         'async' => 0
     );
     
+    public $smtp = array(
+        'smtp_host', 'smtp_port', 'smtp_username', 'smtp_password'
+    );
+        
     public $mandrill = array(
     	'smtp_host', 'smtp_port', 'smtp_username', 'smtp_password', 'api_key'
     );
