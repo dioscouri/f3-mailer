@@ -9,8 +9,32 @@ abstract class Sender extends PHPMailer
     {
         parent::__construct();
         
-        // TODO Set things based on settings in the Config, including
-        // $this->From
-        // $this->FromName
+        $settings = \Mailer\Models\Settings::fetch();
+
+        if ($from_name = $settings->{'general.from_name'}) 
+        {
+            $this->FromName = $from_name; 
+        }
+        
+        if ($from_email = $settings->{'general.from_email'})
+        {
+            $this->From = $from_email;
+        }
+    }
+    
+    /**
+     * 
+     * @return Ambigous <boolean, \Mailers\Abstracts\Sender>
+     */
+    public static function instance()
+    {
+        try {
+        	$sender = new static;
+        } 
+        catch (\Exception $e) {
+            $sender = false;
+        }
+        
+        return $sender;
     }
 }
