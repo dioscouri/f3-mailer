@@ -1,11 +1,11 @@
 <?php
 namespace Mailer\Senders;
 
-class Smtp extends \Mailers\Abstracts\Sender
+class Smtp extends \Mailer\Abstracts\Sender
 {
-    public function __construct($exceptions = false)
+    public function init()
     {
-        parent::__construct($exceptions);
+        $settings = \Mailer\Models\Settings::fetch();
         
         $smtp_host = $settings->{'smtp.smtp_host'};
         $smtp_port = $settings->{'smtp.smtp_port'};
@@ -27,6 +27,8 @@ class Smtp extends \Mailers\Abstracts\Sender
         else
         {
             throw new \Exception('Missing settings');
-        }        
+        }
+
+        return parent::init();
     }
 }

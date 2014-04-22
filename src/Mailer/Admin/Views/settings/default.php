@@ -35,10 +35,10 @@
                     <div class="form-group">
                         <label>Default Sender</label>
                         <select name="general[sender]" class="form-control">
-                            <option value="mail" <?php if ($flash->old('general.sender') == 'mail') { echo "selected='selected'"; } ?>>PHP Mail</option>
-                            <option value="smtp" <?php if ($flash->old('general.sender') == 'smtp') { echo "selected='selected'"; } ?>>SMTP</option>
-                            <option value="sendmail" <?php if ($flash->old('general.sender') == 'sendmail') { echo "selected='selected'"; } ?>>Sendmail</option>
-                            <option value="mandrill" <?php if ($flash->old('general.sender') == 'mandrill') { echo "selected='selected'"; } ?>>Mandrill</option>
+                            <option value="\Mailer\Senders\Mail" <?php if ($flash->old('general.sender') == '\Mailer\Senders\Mail') { echo "selected='selected'"; } ?>>PHP Mail</option>
+                            <option value="\Mailer\Senders\Smtp" <?php if ($flash->old('general.sender') == '\Mailer\Senders\Smtp') { echo "selected='selected'"; } ?>>SMTP</option>
+                            <option value="\Mailer\Senders\Sendmail" <?php if ($flash->old('general.sender') == '\Mailer\Senders\Sendmail') { echo "selected='selected'"; } ?>>Sendmail</option>
+                            <option value="\Mailer\Senders\Mandrill" <?php if ($flash->old('general.sender') == '\Mailer\Senders\Mandrill') { echo "selected='selected'"; } ?>>Mandrill</option>
                         </select>                        
                     </div>
                     <!-- /.form-group -->                    
@@ -92,7 +92,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label>SMTP Port</label>
-                                <input name="smtp[smtp_port]" placeholder="Usually 25, 465, or 587" value="<?php echo $flash->old('smtp.smtp_host'); ?>" class="form-control" type="text" />
+                                <input name="smtp[smtp_port]" placeholder="Usually 25, 465, or 587" value="<?php echo $flash->old('smtp.smtp_port'); ?>" class="form-control" type="text" />
                             </div>
                             <div class="col-md-5">
                                 <label>SMTP Username</label>
@@ -148,7 +148,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label>SMTP Port</label>
-                                <input name="mandrill[smtp_port]" placeholder="Usually 587" value="<?php echo $flash->old('mandrill.smtp_host'); ?>" class="form-control" type="text" />
+                                <input name="mandrill[smtp_port]" placeholder="Usually 587" value="<?php echo $flash->old('mandrill.smtp_port'); ?>" class="form-control" type="text" />
                             </div>
                             <div class="col-md-5">
                                 <label>SMTP Username</label>

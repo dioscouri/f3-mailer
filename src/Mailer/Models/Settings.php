@@ -6,8 +6,9 @@ class Settings extends \Dsc\Mongo\Collections\Settings
     protected $__type = 'mailer.settings';
     
     public $general = array(
-    	'from_name', 
-        'from_email', 
+        'sender' => '\Mailer\Senders\Mail',
+    	'from_name' => null, 
+        'from_email' => null, 
         'async' => 0
     );
     

@@ -1,12 +1,12 @@
 <?php
 namespace Mailer\Senders;
 
-class Sendmail extends \Mailers\Abstracts\Sender
+class Sendmail extends \Mailer\Abstracts\Sender
 {
-    public function __construct($exceptions = false)
+    public function init()
     {
-        parent::__construct($exceptions);
-        
         $this->isSendmail();
+        
+        return parent::init();
     }
 }

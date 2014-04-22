@@ -1,10 +1,21 @@
-<?php 
+<?php
 namespace Mailer;
 
-class Email extends \Mailer\Abstracts\Sender 
+/**
+ * This class extends PHPMailer, so it has all of the functions you'd need to create an email.
+ *
+ * Sending it adds it to the Mailer queue (or sends it immediately if queueing is disabled)
+ */
+class Email extends \Mailer\Abstracts\Sender
 {
+    /**
+     * Overrides PHPMailer::send() in order to add to the Mailer queue
+     *
+     * @return boolean
+     */
     public function send()
     {
-        // TODO Add the item to the queue, don't use the Sender's send() function
+        // TODO Use \Dsc\System->mailer?
+        return \Mailer\Factory::queue($this);
     }
 }
