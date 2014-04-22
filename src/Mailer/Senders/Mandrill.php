@@ -20,22 +20,20 @@ class Mandrill extends \Mailer\Abstracts\Sender
         $smtp_port = $settings->{'mandrill.smtp_port'};
         $smtp_username = $settings->{'mandrill.smtp_username'};
         $smtp_password = $settings->{'mandrill.smtp_password'};
-        
-        // for the moment, only send via SMTP
+
         if ($api_key)
         {
             $this->__api = new \Mandrill($api_key);
         }
         elseif ($smtp_host && $smtp_port && $smtp_username && $smtp_password)
         {
-            // since we extend PHPMailer, just send via SMTP
             $this->IsSMTP();
             $this->Host = $smtp_host;
             $this->Port = $smtp_port;
-            $this->SMTPAuth = true;
             $this->Username = $smtp_username;
             $this->Password = $smtp_password;
             $this->SMTPSecure = 'tls';
+            $this->SMTPAuth = true;
         }
         else
         {
