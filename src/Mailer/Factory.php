@@ -82,8 +82,8 @@ class Factory extends \Dsc\Singleton
 	 *            Recipient email address(es)
 	 * @param string $subject
 	 *            email subject
-	 * @param string $body
-	 *            Message body
+	 * @param mixed $body
+	 *            Message body.  If an array, [0] => html, [1] => plain text
 	 * @param boolean $mode
 	 *            false = plain text, true = HTML
 	 * @param mixed $cc
@@ -99,8 +99,9 @@ class Factory extends \Dsc\Singleton
 	 *
 	 * @return boolean True on success
 	 */
-	public static function send($fromEmail, $fromName, $recipientEmails, $subject, $body, $mode = true, $cc = null, $bcc = null, $attachment = null, $replyTo = null, $replyToName = null)
+	public static function send($recipientEmails, $subject, $body, $fromEmail = null, $fromName = null, $mode = true, $cc = null, $bcc = null, $attachment = null, $replyTo = null, $replyToName = null)
 	{
+	    $settings = \Mailer\Models\Settings::fetch();
 	    $email = new \Mailer\Email;
 	
 	    $email->setSubject($subject);
@@ -142,6 +143,14 @@ class Factory extends \Dsc\Singleton
 	        ));
 	    }
 	
+	    if (empty($fromEmail)) {
+	        $fromEmail = $settings->{'general.from_email'};
+	    }
+	    
+	    if (empty($fromName)) {
+	        $fromName = $settings->{'general.from_name'};
+	    }
+	    
 	    // Add sender to replyTo only if no replyTo received
 	    $autoReplyTo = (empty($email->ReplyTo)) ? true : false;
 	    $email->setSender(array(

@@ -165,7 +165,32 @@ class Sender extends \PHPMailer
      */
     public function setBody($content)
     {
-        $this->Body = $this->cleanText($content);
+        if (is_array($content)) 
+        {
+            $values = array_values($content);
+            $this->Body = $this->cleanText($values[0]);
+            
+            if (!empty($values[1])) 
+            {
+                $this->setAltBody($values[1]);
+            }
+        }
+        
+        else 
+        {
+            $this->Body = $this->cleanText($content);
+        }
+    
+        return $this;
+    }
+    
+    /**
+     * Set the email plain-text body
+     *
+     */
+    public function setAltBody($content)
+    {
+        $this->AltBody = $this->cleanText($content);
     
         return $this;
     }
