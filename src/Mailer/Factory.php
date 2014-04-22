@@ -62,6 +62,7 @@ class Factory extends \Dsc\Singleton
 	        $result = $mailer->sendEmail( $email, false );
 	        
 	        // update the status of the email in the emails collection with the result of the send
+	        $model->sender_response = $mailer->response();
 	        $model->queue_status = 'sent';
 	        $model->send_result = $result;
 	        $model->save();

@@ -6,7 +6,6 @@ class Mandrill extends \Mailer\Abstracts\Sender
     protected $type = 'mandrill';
     
     protected $__api = false; // if api key exists, is a \Mandrill object
-    protected $__response = null; // if api call is made, this holds the response
     
     /**
      * Initialize the Sender
@@ -56,17 +55,6 @@ class Mandrill extends \Mailer\Abstracts\Sender
     public function api()
     {
         return $this->__api;
-    }
-
-    /**
-     * Get last API call's response
-     *
-     * @return
-     *
-     */
-    public function response()
-    {
-        return $this->__response;
     }
 
     /**

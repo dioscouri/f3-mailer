@@ -6,6 +6,7 @@ class Sender extends \PHPMailer
     use \Mailer\Traits\Cleaner;
     
     protected $__settings;
+    protected $__response = null; // if the sender makes a call (mail(), sendmail(), api->send(), whatever), this holds the response
     
     protected $type = 'mail';
     
@@ -48,6 +49,17 @@ class Sender extends \PHPMailer
         $this->IsHTML(true);
 
         return $this;
+    }
+    
+    /**
+     * Get last send's response
+     *
+     * @return
+     *
+     */
+    public function response()
+    {
+        return $this->__response;
     }
     
     /**
