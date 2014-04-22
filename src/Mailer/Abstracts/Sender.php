@@ -20,6 +20,9 @@ abstract class Sender extends PHPMailer
         {
             $this->From = $from_email;
         }
+        
+        // TODO Add this as a config setting
+        $this->IsHTML(true);
     }
     
     /**

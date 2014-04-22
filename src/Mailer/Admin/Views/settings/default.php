@@ -86,6 +86,21 @@
                             </div>
                         </div>
                     </div>
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>SMTP Password</label>
+                                <input name="mandrill[smtp_password]" placeholder="SMTP Password" value="<?php echo $flash->old('mandrill.smtp_password'); ?>" class="form-control" type="text" />
+                                <p class="help-block">
+                                    Login to <a href="http://mandrillapp.com" target="_blank">http://mandrillapp.com</a> to create or retrieve your SMTP Password, which is just any valid API Key. 
+                                </p>                                
+                            </div>
+                            <div class="col-md-9">
+                                                                
+                            </div>
+                        </div>                        
+                    </div>
                     <!-- /.form-group -->                    
 
                     <div class="form-group">
@@ -98,7 +113,7 @@
                                 </p>                                
                             </div>
                             <div class="col-md-9">
-                                
+                                <div class="alert alert-info"><p>If you only want to enable SMTP sending, do not enter an API Key.</p></div>
                             </div>                            
                         </div>
                     </div>

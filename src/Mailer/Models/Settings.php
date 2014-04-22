@@ -12,6 +12,6 @@ class Settings extends \Dsc\Mongo\Collections\Settings
     );
     
     public $mandrill = array(
-    	'smtp_host', 'smtp_port', 'smtp_username', 'api_key'
+    	'smtp_host', 'smtp_port', 'smtp_username', 'smtp_password', 'api_key'
     );
 }
