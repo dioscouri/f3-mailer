@@ -120,6 +120,26 @@
                     
                     <hr />
                     
+                    <div class="alert alert-info"><p>If you only want to enable Mandrill's API-based sending, do not provide SMTP credentials below.  Only enter an API Key.  If you provide both an API Key and SMTP credentials, only the API Key will be used.</p></div>
+                    
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>API Key</label>
+                                <input name="mandrill[api_key]" placeholder="API Key" value="<?php echo $flash->old('mandrill.api_key'); ?>" class="form-control" type="text" />
+                                <p class="help-block">
+                                    Login to <a href="http://mandrillapp.com" target="_blank">http://mandrillapp.com</a> to create or retrieve your API Key. 
+                                </p>                                
+                            </div>
+                            <div class="col-md-9">
+                                
+                            </div>                            
+                        </div>
+                    </div>
+                    <!-- /.form-group -->
+                    
+                    <div class="alert alert-info"><p>If you only want to enable SMTP sending via Mandrill, do not enter an API Key above. Only provide SMTP credentials below.</p></div>
+                    
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-5">
@@ -152,22 +172,7 @@
                         </div>                        
                     </div>
                     <!-- /.form-group -->                    
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>API Key</label>
-                                <input name="mandrill[api_key]" placeholder="API Key" value="<?php echo $flash->old('mandrill.api_key'); ?>" class="form-control" type="text" />
-                                <p class="help-block">
-                                    Login to <a href="http://mandrillapp.com" target="_blank">http://mandrillapp.com</a> to create or retrieve your API Key. 
-                                </p>                                
-                            </div>
-                            <div class="col-md-9">
-                                <div class="alert alert-info"><p>If you only want to enable SMTP sending, do not enter an API Key.</p></div>
-                            </div>                            
-                        </div>
-                    </div>
-                    <!-- /.form-group -->
+                    
                 </div>                
                 
             </div>
