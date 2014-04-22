@@ -44,7 +44,11 @@ class Factory extends \Dsc\Singleton
 	    // TODO add the email to the emails collection with $this->sender as the preferred sender,
 
 	    // if async sending is disabled, send the email immediately
-	    if (empty($mailer->settings()->{'general.async'})) 
+	    $async = $mailer->settings()->{'general.async'};
+	    
+	    // For now, async is disabled.  All emails are sent immediately
+	    $async = false;
+	    if (empty($async)) 
 	    {
 	        // then send it immediately using $this->__sender if asynchronous sending is disabled.
 	        $result = $mailer->sender()->sendEmail( $email );
