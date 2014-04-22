@@ -33,27 +33,38 @@ class Factory extends \Dsc\Singleton
      * 
      * Either way, the preferred sender is used (whatever is chosen in the config and set as $this->sender).
      * 
+     * @throws Exception if save to \Mailer\Models\Email fails
+     * 
      * @return boolean
      */
 	public static function queue( \Mailer\Email $email )
 	{
-	    $result = true;
+	    $result = false;
 	    
-	    $mailer = static::instance();
+	    $mailer = static::instance()->sender()->bindEmail( $email )->init();
 	    
-	    // TODO add the email to the emails collection with $this->sender as the preferred sender,
-
+	    // add the email to the emails collection with $this->sender as the preferred sender,
+        $model = $mailer->toModel()->save();
+        
+        // update the result
+        $result = 'queued';
+        
 	    // if async sending is disabled, send the email immediately
 	    $async = $mailer->settings()->{'general.async'};
 	    
 	    // For now, async is disabled.  All emails are sent immediately
 	    $async = false;
+	    
 	    if (empty($async)) 
 	    {
-	        // then send it immediately using $this->__sender if asynchronous sending is disabled.
-	        $result = $mailer->sender()->sendEmail( $email );
+	        // Send it immediately using $this->sender() since asynchronous sending is disabled.
+	        // pass false as the second argument to prevent the mailer from doing a bind & init (since we already did it)
+	        $result = $mailer->sendEmail( $email, false );
 	        
-	        // TODO update the status of the email in the emails collection with the result of the send	        
+	        // update the status of the email in the emails collection with the result of the send
+	        $model->queue_status = 'sent';
+	        $model->send_result = $result;
+	        $model->save();
 	    }
 	    
 	    return $result;

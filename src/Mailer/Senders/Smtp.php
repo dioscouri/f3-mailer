@@ -3,14 +3,14 @@ namespace Mailer\Senders;
 
 class Smtp extends \Mailer\Abstracts\Sender
 {
+    protected $type = 'smtp';
+    
     public function init()
     {
-        $settings = \Mailer\Models\Settings::fetch();
-        
-        $smtp_host = $settings->{'smtp.smtp_host'};
-        $smtp_port = $settings->{'smtp.smtp_port'};
-        $smtp_username = $settings->{'smtp.smtp_username'};
-        $smtp_password = $settings->{'smtp.smtp_password'};
+        $smtp_host = $this->settings()->{'smtp.smtp_host'};
+        $smtp_port = $this->settings()->{'smtp.smtp_port'};
+        $smtp_username = $this->settings()->{'smtp.smtp_username'};
+        $smtp_password = $this->settings()->{'smtp.smtp_password'};
         
         if ($smtp_host && $smtp_port && $smtp_username && $smtp_password)
         {

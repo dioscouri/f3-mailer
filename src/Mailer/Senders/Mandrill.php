@@ -3,6 +3,8 @@ namespace Mailer\Senders;
 
 class Mandrill extends \Mailer\Abstracts\Sender
 {
+    protected $type = 'mandrill';
+    
     protected $__api = false; // if api key exists, is a \Mandrill object
     protected $__response = null; // if api call is made, this holds the response
     
@@ -13,20 +15,23 @@ class Mandrill extends \Mailer\Abstracts\Sender
      */
     public function init()
     {
-        $settings = \Mailer\Models\Settings::fetch();
-        
-        $api_key = $settings->{'mandrill.api_key'};
-        $smtp_host = $settings->{'mandrill.smtp_host'};
-        $smtp_port = $settings->{'mandrill.smtp_port'};
-        $smtp_username = $settings->{'mandrill.smtp_username'};
-        $smtp_password = $settings->{'mandrill.smtp_password'};
+        $api_key = $this->settings()->{'mandrill.api_key'};
+        $smtp_host = $this->settings()->{'mandrill.smtp_host'};
+        $smtp_port = $this->settings()->{'mandrill.smtp_port'};
+        $smtp_username = $this->settings()->{'mandrill.smtp_username'};
+        $smtp_password = $this->settings()->{'mandrill.smtp_password'};
 
         if ($api_key)
         {
+            $this->Mailer = 'mandrill';
+            $this->type = 'mandrill.api';
+            
             $this->__api = new \Mandrill($api_key);
         }
         elseif ($smtp_host && $smtp_port && $smtp_username && $smtp_password)
         {
+            $this->type = 'mandrill.smtp';
+            
             $this->IsSMTP();
             $this->Host = $smtp_host;
             $this->Port = $smtp_port;

@@ -5,21 +5,41 @@ class Sender extends \PHPMailer
 {
     use \Mailer\Traits\Cleaner;
     
+    protected $__settings;
+    
+    protected $type = 'mail';
+    
     public function __construct($exceptions = true)
     {
         parent::__construct($exceptions);
     }
     
+    /**
+     * Get the settings object
+     */
+    public function settings()
+    {
+        if (empty($this->__settings)) 
+        {
+            $this->__settings = \Mailer\Models\Settings::fetch();
+        }
+        
+        return $this->__settings;
+    }
+    
+    /**
+     * Initialize the sender for sending
+     * 
+     * @return \Mailer\Abstracts\Sender
+     */
     public function init()
     {
-        $settings = \Mailer\Models\Settings::fetch();
-        
-        if ($from_name = $settings->{'general.from_name'})
+        if ($from_name = $this->settings()->{'general.from_name'})
         {
             $this->FromName = $from_name;
         }
         
-        if ($from_email = $settings->{'general.from_email'})
+        if ($from_email = $this->settings()->{'general.from_email'})
         {
             $this->From = $from_email;
         }
@@ -70,9 +90,14 @@ class Sender extends \PHPMailer
      * 
      * @param \Mailer\Email $email
      */
-    public function sendEmail( \Mailer\Email $email ) 
+    public function sendEmail( \Mailer\Email $email, $bind_and_init=true ) 
     {
-        return $this->bindEmail( $email )->init()->send();
+        if ($bind_and_init) {
+            return $this->bindEmail( $email )->init()->send();
+        }
+        else {
+            return $this->send();
+        }        
     }
     
     /**
@@ -308,5 +333,32 @@ class Sender extends \PHPMailer
     public function get( $key )
     {
         return $this->$key;        
+    }
+    
+    /**
+     * Set properties of a model based on $this
+     *
+     * @return \Mailer\Models\Emails
+     */
+    public function toModel()
+    {
+        $model = new \Mailer\Models\Emails;
+    
+        $vars = get_object_vars($this);
+    
+        foreach ($vars as $key=>$value)
+        {
+            if (substr( $key, 0, 2 ) == '__')
+            {
+                unset($vars[$key]);
+            }
+        }
+    
+        $model->bind($vars);
+        
+        // cleanup and prune some fields
+        $model->all_recipients = array_keys( $model->all_recipients );
+        
+        return $model;
     }
 }
