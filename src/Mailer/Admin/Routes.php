@@ -10,8 +10,7 @@ class Routes extends \Dsc\Routes\Group
             'url_prefix' => '/admin/mailer'
         ));
         
-        // uncomment this, if you add settings
-        // $this->addSettingsRoutes( '/emails' );
+        $this->addSettingsRoutes();
         
         $this->add( '', 'GET', array(
             'controller' => 'Home',

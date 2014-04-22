@@ -16,6 +16,7 @@ class Listener extends \Prefab
         	$mapper->children = array(
         	        json_decode(json_encode(array( 'title'=>'Dashboard', 'route'=>'/admin/mailer', 'icon'=>'fa fa-dashboard' )))
         			,json_decode(json_encode(array( 'title'=>'List', 'route'=>'/admin/mailer/emails', 'icon'=>'fa fa-list' )))
+        	        ,json_decode(json_encode(array( 'title'=>'Settings', 'route'=>'/admin/mailer/settings', 'icon'=>'fa fa-cogs' )))
         	);
         	$mapper->save();
         	

@@ -10,7 +10,7 @@ abstract class Sender extends PHPMailer
         parent::__construct();
         
         // TODO Set things based on settings in the Config, including
-        // $From
-        // $FromName
+        // $this->From
+        // $this->FromName
     }
 }
