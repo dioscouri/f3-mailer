@@ -5,7 +5,7 @@
     <div class="clearfix">
 
         <div class="pull-right">
-            <a class="btn btn-default" href="/admin/mailer/emails">Cancel</a>
+            <a class="btn btn-default" href="./admin/mailer/emails">Cancel</a>
         </div>
 
     </div>
