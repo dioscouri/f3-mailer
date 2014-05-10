@@ -27,7 +27,7 @@ class Listener extends \Prefab
         			array( 'title'=>'List', 'route'=>'/admin/mailer/emails', 'icon'=>'fa fa-list' ),
         	        array( 'title'=>'Settings', 'route'=>'/admin/mailer/settings', 'icon'=>'fa fa-cogs' ),
         	);
-        	$emails->addChildrenItems( $children, $root, $model );
+        	$emails->addChildrenItems( $children, $root );
         	
         	\Dsc\System::instance()->addMessage('Mailer added its admin menu items.');
         }
