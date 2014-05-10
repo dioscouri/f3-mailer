@@ -3,7 +3,9 @@ namespace Mailer\Admin\Controllers;
 
 class Emails extends \Admin\Controllers\BaseAuth 
 {
-    public function index()
+    use \Dsc\Traits\Controllers\AdminList;
+	
+	public function index()
     {
         $model = new \Mailer\Models\Emails;
         \Base::instance()->set('state', $model->populateState()->getState() );
