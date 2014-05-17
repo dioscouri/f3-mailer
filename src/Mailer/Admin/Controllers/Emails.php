@@ -18,6 +18,8 @@ class Emails extends \Admin\Controllers\BaseAuth
         \Base::instance()->set('state', $model->populateState()->getState() );
         \Base::instance()->set('paginated', $model->paginate() );
                 
+        $this->app->set('meta.title', 'Emails | Mailer');
+        
         $view = \Dsc\System::instance()->get('theme');
         echo $view->render('Mailer\Admin\Views::emails/list.php');
     }

@@ -36,18 +36,24 @@ class Email extends \Admin\Controllers\BaseAuth
 
     protected function displayCreate()
     {
+        $this->app->set('meta.title', 'Create Email | Mailer');
+        
         $view = \Dsc\System::instance()->get('theme');
         echo $view->render('Mailer\Admin\Views::emails/read.php');
     }
     
     protected function displayEdit()
     {
+        $this->app->set('meta.title', 'Edit Email | Mailer');
+        
         $view = \Dsc\System::instance()->get('theme');
         echo $view->render('Mailer\Admin\Views::emails/read.php');
     }
     
     protected function displayRead()
     {
+        $this->app->set('meta.title', 'Read Email | Mailer');
+        
         $view = \Dsc\System::instance()->get('theme');
         echo $view->render('Mailer\Admin\Views::emails/read.php');
     }
