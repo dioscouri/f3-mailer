@@ -24,17 +24,17 @@ class Listener extends \Prefab
             $children = array(
                 array(
                     'title' => 'Dashboard',
-                    'route' => '/admin/mailer',
+                    'route' => './admin/mailer',
                     'icon' => 'fa fa-dashboard'
                 ),
                 array(
                     'title' => 'List',
-                    'route' => '/admin/mailer/emails',
+                    'route' => './admin/mailer/emails',
                     'icon' => 'fa fa-list'
                 ),
                 array(
                     'title' => 'Settings',
-                    'route' => '/admin/mailer/settings',
+                    'route' => './admin/mailer/settings',
                     'icon' => 'fa fa-cogs'
                 )
             );
