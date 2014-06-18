@@ -22,11 +22,13 @@ class Listener extends \Prefab
             ));
             
             $children = array(
+                /*
                 array(
                     'title' => 'Dashboard',
                     'route' => './admin/mailer',
                     'icon' => 'fa fa-dashboard'
                 ),
+                */
                 array(
                     'title' => 'List',
                     'route' => './admin/mailer/emails',
