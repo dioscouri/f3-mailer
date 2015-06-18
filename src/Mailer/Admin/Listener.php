@@ -30,10 +30,15 @@ class Listener extends \Prefab
                 ),
                 */
                 array(
-                    'title' => 'List',
+                    'title' => 'Emails',
                     'route' => './admin/mailer/emails',
                     'icon' => 'fa fa-list'
                 ),
+            	array(
+            		'title' => 'events',
+            		'route' => './admin/mailer/events',
+            		'icon' => 'fa fa-list'
+            	),
                 array(
                     'title' => 'Settings',
                     'route' => './admin/mailer/settings',

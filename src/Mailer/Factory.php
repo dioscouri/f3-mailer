@@ -190,4 +190,37 @@ class Factory extends \Dsc\Singleton
 	{
 	    return $this->__settings;
 	}
+	
+	
+	/*
+	 * 
+	 */
+	public static function getEmailContents($eventName, $options = array()) {
+		try {
+			
+			//fetch the event from mongo
+			$event = (new \Mailer\Models\Events)->setCondition('event_name', $eventName)->getItem();
+			
+		
+			//if we have more than just an event name assign those variables to the view users the passed variable name;
+			if(count($options)) {
+				foreach ($options as $key => $value) {
+						\Base::instance()->set($key,$value);
+				}
+			} 
+			//get the email contents
+			$content = $event->getRenderedContent();
+			
+			var_dump($content); die();
+			
+			
+			return $content; 
+			//pass the additional $func = args;
+		} catch (\Exception $e) {
+			
+		}
+		
+	}
+	
+	
 }

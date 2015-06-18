@@ -18,5 +18,12 @@ class Routes extends \Dsc\Routes\Group
         ) );
                 
         $this->addCrudGroup( 'Emails', 'Email' );
+        $this->addCrudGroup( 'Events', 'Event' );
+        $this->addCrudGroup( 'ContentVariants', 'ContentVariant' );
+        
+        $this->add( '/contentvariants/quickadd/@id', 'GET', array(
+        		'controller' => 'ContentVariant',
+        		'action' => 'quickAdd'
+        ) );
     }
 }
