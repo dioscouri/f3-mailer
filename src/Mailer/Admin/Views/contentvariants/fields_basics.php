@@ -1,9 +1,5 @@
 <div class="row">
-    <div class="col-md-2">
-        
-        <h3>Basics</h3>
-                
-    </div>
+   
     <!-- /.col-md-2 -->
                 
     <div class="col-md-10">
@@ -20,15 +16,37 @@
            
         </div>
         <!-- /.form-group -->
-        
+        <div class="form-group">
+            <label>Email Subject</label>
+            <input type="text" name="event_title" placeholder="Title" value="<?php echo $flash->old('event_title'); ?>" class="form-control" />
+           
+        </div>
          <div class="form-group">
-            <label>Email Body</label>
-            <textarea name="email_body" class="form-control wysiwyg"><?php echo $flash->old('email_body'); ?></textarea>
+            <label>Email Body HTML</label>
+            <textarea name="event_html" class="form-control wysiwyg"><?php echo $flash->old('event_html'); ?></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>Email Body TEXT</label>
+            <textarea name="event_text" class="form-control "><?php echo $flash->old('event_text'); ?></textarea>
         </div>
         <!-- /.form-group -->
         
     </div>
+    
     <!-- /.col-md-10 -->
+
+    <div class="col-md-2">
+        
+        <h3>Blocks</h3>
+      	<ul class="list-group">
+        <?php foreach ((new \Mailer\Models\Blocks)->find() as $doc) :?>
+        <li class="list-group-item">{{ @<?php echo $doc['key']; ?> }}</li>
+        <?php endforeach;?>
+        </ul>
+        
+                
+    </div>
     
 </div>
 <!-- /.row -->

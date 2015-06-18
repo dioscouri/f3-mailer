@@ -210,15 +210,18 @@ class Factory extends \Dsc\Singleton
 			} 
 			$blocks = (new \Mailer\Models\Blocks)->getList();
 			
+			//TODO add a varibles definer in the CMS probably useing xeditable
+			\Base::instance()->set('base_url', \Base::instance()->get('SCHEME') . '://' . \Base::instance()->get('HOST') . \Base::instance()->get('BASE'));
+			
 			foreach ($blocks as $block) {
 				$html = \Mailer\Render::instance()->resolve($block->content);
 				\Base::instance()->set($block->key, $html);
 			}
 			
 			
-			//get the email contents
+			//get the email contents Subject and Content
 			$content = $event->getRenderedContent();
-			
+		
 			return $content; 
 			//pass the additional $func = args;
 		} catch (\Exception $e) {

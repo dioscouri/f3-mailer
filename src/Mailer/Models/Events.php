@@ -34,25 +34,29 @@ class Events extends \Dsc\Mongo\Collections\Describable
         return $this;
     }
 
-    public static function register( $namespace, array $options=array() )
+    public static function register( $eventName, array $options=[], array $content= [])
     {
-        // Add the report to the collection if it isn't already
-        $report = (new static)->setState('filter.namespace', $namespace)->getItem();
-        if (empty($report->id) || !empty($options['__update'])) 
+        // Add the email to the collection if it isn't already
+        $event = (new static)->setCondition('event_name', $eventName)->getItem();
+        if (empty($event->id)) 
         {
             try {
-                if (empty($report->id)) {
-                    $report = new static;
-                }
+                $event = new static;
                 
-                $report->bind(array(
-                    'namespace' => $namespace,
+                $event->bind(array(
+                    'event_name' => $eventName,
                 ))->bind($options)->save();
-
-                return $report;
+				
+                $content = $content + ['title' => 'default', 'copy' => 'Default From Application'];
+                //create the default content
+                $model = (new \Mailer\Models\ContentVariants);
+                $model->set('event_id',$event->id);
+                $model->bind($content);
+                $model->save();
+                return $event;
             }
             catch (\Exception $e) {
-                
+                echo $e->getMessage(); die();
             	return false;
             }
 
@@ -75,7 +79,7 @@ class Events extends \Dsc\Mongo\Collections\Describable
 			
 			
 			
-			if(empty($content->email_body)) {
+			if(empty($content->event_html) ) {
 				throw new \Exception('Content is empty, or No Content Variant for this event');
 			} else {
 				return $content;
@@ -92,11 +96,11 @@ class Events extends \Dsc\Mongo\Collections\Describable
 		$content = $this->getContentVariant();
 		
 	
+		$subject = \Mailer\Render::instance()->resolve($content->event_title);
+		$html = \Mailer\Render::instance()->resolve($content->event_html);
+		$text = \Mailer\Render::instance()->resolve($content->event_text);
 		
-		$rendered = \Mailer\Render::instance()->resolve($content->email_body);
-		
-		
-		return $rendered; 
+		return ['subject' =>$subject, 'content' => [$html,$text]]; 
 		
 	}
     

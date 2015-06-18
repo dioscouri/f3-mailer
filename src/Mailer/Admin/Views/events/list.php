@@ -82,7 +82,7 @@
                         <th class="checkbox-column"><input type="checkbox" class="icheck-input"></th>
                         <th data-sortable="Subject">Title</th>
                         <th>Event Name</th>
-
+						<th>App</th>
                         
                         <th class="col-md-1"></th>
                     </tr>
@@ -107,7 +107,11 @@
                             <?php echo $item->event_name; ?>
                             </a>
                         </td>
-
+						 <td class="">
+                            <a href="./admin/mailer/event/edit/<?php echo $item->id; ?>">
+                            <?php echo $item->app; ?>
+                            </a>
+                        </td>
                      
 
                         <td class="text-center"><a class="btn btn-xs btn-secondary" href="./admin/mailer/event/edit/<?php echo $item->id; ?>">

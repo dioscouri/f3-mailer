@@ -11,7 +11,7 @@
     <?php $variants = (new \Mailer\Models\ContentVariants)->setCondition('event_id', new \MongoId((string) $flash->old('_id')))->getList(); ?>
     
     <a class="btn btn-info" href="/admin/mailer/contentvariants/quickadd/<?php echo $flash->old('_id'); ?>">Create New Email Variant</a>
-        <table>
+        <table class="table table-bordered">
         <thead>
 	        <td>Title</td>
 	        <td></td>

@@ -14,11 +14,13 @@ class ContentVariants extends \Dsc\Mongo\Collections\Describable
     public $icon = null;           // a font-awesome class name
     public $event_id = null;           // ObjectId of Event it is attached
     
-    public $event_body = null;           // HTML markup for the body of the email
+    public $event_html = null;           // HTML markup for the body of the email
+    public $event_text = null;           // HTML markup for the body of the email
+    public $last_used = null;  			//putting last time the template was sent to enable round robin A+B testing
     
     protected $__config = array(
         'default_sort' => array(
-        	'type' => 1,
+        	'last_used' => 1,
             'title' => 1,
         ) 
     );
