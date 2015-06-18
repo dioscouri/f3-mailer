@@ -35,10 +35,15 @@ class Listener extends \Prefab
                     'icon' => 'fa fa-list'
                 ),
             	array(
-            		'title' => 'events',
+            		'title' => 'Events',
             		'route' => './admin/mailer/events',
             		'icon' => 'fa fa-list'
             	),
+            		array(
+            				'title' => 'Blocks',
+            				'route' => './admin/mailer/blocks',
+            				'icon' => 'fa fa-list'
+            		),
                 array(
                     'title' => 'Settings',
                     'route' => './admin/mailer/settings',

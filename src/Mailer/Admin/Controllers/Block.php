@@ -1,18 +1,18 @@
 <?php 
 namespace Mailer\Admin\Controllers;
 
-class ContentVariants extends \Admin\Controllers\BaseAuth 
+class Block extends \Admin\Controllers\BaseAuth 
 {
     use \Dsc\Traits\Controllers\CrudItemCollection;
     
-    protected $list_route = '/admin/mailer/events';
-    protected $create_item_route = '/admin/mailer/event/create';
-    protected $get_item_route = '/admin/mailer/event/read/{id}';
-    protected $edit_item_route = '/admin/mailer/event/edit/{id}';
+    protected $list_route = '/admin/mailer/blocks';
+    protected $create_item_route = '/admin/mailer/block/create';
+    protected $get_item_route = '/admin/mailer/block/read/{id}';
+    protected $edit_item_route = '/admin/mailer/block/edit/{id}';
     
     protected function getModel()
     {
-        $model = new \Mailer\Models\Event;
+        $model = new \Mailer\Models\Blocks;
         return $model;
     }
     
@@ -36,25 +36,27 @@ class ContentVariants extends \Admin\Controllers\BaseAuth
 
     protected function displayCreate()
     {
-        $this->app->set('meta.title', 'Create Event | Mailer');
+        $this->app->set('meta.title', 'Create Blocks | Mailer');
         
         $view = \Dsc\System::instance()->get('theme');
-        echo $view->render('Mailer\Admin\Views::events/create.php');
+        echo $view->render('Mailer\Admin\Views::blocks/create.php');
     }
     
     protected function displayEdit()
     {
-        $this->app->set('meta.title', 'Edit Event | Mailer');
+        $this->app->set('meta.title', 'Edit Blocks | Mailer');
         
         $view = \Dsc\System::instance()->get('theme');
-        echo $view->render('Mailer\Admin\Views::events/edit.php');
+        echo $view->render('Mailer\Admin\Views::blocks/edit.php');
     }
     
     protected function displayRead()
     {
-        $this->app->set('meta.title', 'Read Event | Mailer');
+        $this->app->set('meta.title', 'Read Blocks | Mailer');
         
         $view = \Dsc\System::instance()->get('theme');
-        echo $view->render('Mailer\Admin\Views::events/read.php');
+        echo $view->render('Mailer\Admin\Views::blocks/read.php');
     }
+    
+ 
 }

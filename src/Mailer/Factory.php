@@ -208,11 +208,16 @@ class Factory extends \Dsc\Singleton
 						\Base::instance()->set($key,$value);
 				}
 			} 
+			$blocks = (new \Mailer\Models\Blocks)->getList();
+			
+			foreach ($blocks as $block) {
+				$html = \Mailer\Render::instance()->resolve($block->content);
+				\Base::instance()->set($block->key, $html);
+			}
+			
+			
 			//get the email contents
 			$content = $event->getRenderedContent();
-			
-			var_dump($content); die();
-			
 			
 			return $content; 
 			//pass the additional $func = args;
