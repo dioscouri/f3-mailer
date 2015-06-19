@@ -12,16 +12,15 @@ class ContentVariants extends \Dsc\Mongo\Collections\Describable
     public $title = null;           // human-readable      
     public $type = null;           // e.g. 'products', 'orders', 'customers', 'misc'
     public $icon = null;           // a font-awesome class name
+
     public $event_id = null;           // ObjectId of Event it is attached
-    
     public $event_html = null;           // HTML markup for the body of the email
     public $event_text = null;           // HTML markup for the body of the email
     public $last_used = null;  			//putting last time the template was sent to enable round robin A+B testing
     
     protected $__config = array(
         'default_sort' => array(
-        	'last_used' => 1,
-            'title' => 1,
+        	'last_used' => -1
         ) 
     );
     
@@ -46,6 +45,10 @@ class ContentVariants extends \Dsc\Mongo\Collections\Describable
     		throw new \Exception('Event Id is required');
     	}
     
+    	if (empty($this->last_used))
+    	{
+    		$this->last_used = time();
+    	}
     	// TODO Put this in beforeSave, to ensure that the slug is clean
     	//$this->slug = \Web::instance()->slug( $this->slug );
     

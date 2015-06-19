@@ -82,6 +82,7 @@ class Events extends \Dsc\Mongo\Collections\Describable
 			if(empty($content->event_html) ) {
 				throw new \Exception('Content is empty, or No Content Variant for this event');
 			} else {
+				$content->set('last_used', time())->save();
 				return $content;
 			}
 		} catch (Exception $e) {
