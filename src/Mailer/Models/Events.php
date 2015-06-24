@@ -1,26 +1,27 @@
-<?php 
+<?php
 namespace Mailer\Models;
 
 class Events extends \Dsc\Mongo\Collections\Describable
 {
-       
     protected $__collection_name = 'mailer.events';
     protected $__type = 'core';
-    
-	public $slug = null;           // required, unique.
-	
-    public $title = null;           // human-readable      
-    public $type = null;           // e.g. 'products', 'orders', 'customers', 'misc'
-    public $icon = null;           // a font-awesome class name
 
-    
+    public $slug = null;
+    public $title = null;
+                         
+    // these are being used
+    public $event_name = null;
+    public $event_subject = null;
+    public $event_html = null;
+    public $event_text = null;
+
     protected $__config = array(
         'default_sort' => array(
-        	'type' => 1,
-            'title' => 1,
-        ) 
+            'type' => 1,
+            'title' => 1
+        )
     );
-    
+
     protected function fetchConditions()
     {
         parent::fetchConditions();
@@ -30,96 +31,127 @@ class Events extends \Dsc\Mongo\Collections\Describable
         {
             $this->setCondition('namespace', $filter_namespace);
         }
-    	
+        
         return $this;
     }
 
-    public static function register( $eventName, array $options=[], array $content= [])
+    public static function register($eventName, array $options = [], array $content = [])
     {
-        // Add the email to the collection if it isn't already
-        $event = (new static)->setCondition('event_name', $eventName)->getItem();
-        if (empty($event->id)) 
+        // Add the email event to the collection if it isn't already
+        $event = (new static())->setCondition('event_name', $eventName)->getItem();
+        if (empty($event->id))
         {
-            try {
-                $event = new static;
+            try
+            {
+                $event = new static();
                 
                 $event->bind(array(
-                    'event_name' => $eventName,
-                ))->bind($options)->save();
-				
-                $content = $content + ['title' => 'default', 'copy' => 'Default From Application'];
-                //create the default content
-                $model = (new \Mailer\Models\ContentVariants);
-                $model->set('event_id',$event->id);
-                $model->bind($content);
-                $model->save();
+                    'event_name' => $eventName
+                ))
+                    ->bind($options)
+                    ->bind($content)
+                    ->save();
+                
+                // create the first template?
+                /*
+                 * $content = $content + ['title' => 'Default', 'copy' => 'Default From Application'];
+                 * $model = (new \Mailer\Models\Templates);
+                 * $model->set('event_id',$event->id);
+                 * $model->bind($content);
+                 * $model->save();
+                 */
                 return $event;
             }
-            catch (\Exception $e) {
-                echo $e->getMessage(); die();
-            	return false;
+            catch (\Exception $e)
+            {
+                echo $e->getMessage();
+                die();
+                return false;
             }
-
+        }
+        else
+        {
+            // update the default values for the event
+            $event->bind($options)
+                ->bind($content)
+                ->save();
         }
         
         return true;
     }
-    /*
-     * Gets the content Variant based off settings
-     * */
-	public function getContentVariant() {
-		try {
-			$variants = (new \Mailer\Models\ContentVariants);
-			
-			$variants->setCondition('event_id', $this->id);
-			
-			
-			
-			$content = $variants->getItem();
-			
-			
-			
-			if(empty($content->event_html) ) {
-				throw new \Exception('Content is empty, or No Content Variant for this event');
-			} else {
-				$content->set('last_used', time())->save();
-				return $content;
-			}
-		} catch (Exception $e) {
-			//throw the error up the stack
-			throw new \Exception($e->getMessage());
-		}
 
-	}   
-	
-	public function getRenderedContent() {
-		
-		$content = $this->getContentVariant();
-		
-	
-		$subject = \Mailer\Render::instance()->resolve($content->event_title);
-		$html = \Mailer\Render::instance()->resolve($content->event_html);
-		$text = \Mailer\Render::instance()->resolve($content->event_text);
-		
-		return ['subject' =>$subject, 'content' => [$html,$text]]; 
-		
-	}
-    
+    /**
+     * Gets the content Variant based off settings
+     */
+    public function getTemplate()
+    {
+        try
+        {
+            // Implement the round-robin logic here 
+            // to return the template least recently used 
+            $template = \Mailer\Models\Templates::findOne(array(
+                'event_id' => $this->id,
+                'publication.status' => 'published',
+                'sort' => array(
+                    'last_used' => -1
+                )
+            ));
+            
+            if (empty($template->id)) {
+                $template = $this;
+            } else {
+                $template->set('last_used', time())->save();
+            }
+            
+            if (empty($template->event_html))
+            {
+                throw new \Exception('Content is empty, or no Template for this event');
+            }
+            
+            return $template;
+            
+        }
+        catch (Exception $e)
+        {
+            // throw the error up the stack
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function getRenderedContent()
+    {
+        $template = $this->getTemplate();
+        
+        $subject = \Mailer\Render::instance()->resolve($template->event_subject);
+        $html = \Mailer\Render::instance()->resolve($template->event_html);
+        $text = \Mailer\Render::instance()->resolve($template->event_text);
+        
+        return [
+            'subject' => $subject,
+            'content' => [
+                $html,
+                $text
+            ],
+            'fromEmail' => $template->from_email ? $template->from_email : null,
+            'fromName' => $template->from_name ? $template->from_name : null
+        ];
+    }
+
     protected function beforeValidate()
     {
-        if (empty($this->slug)) 
+        if (empty($this->slug))
         {
-            $this->slug = \Web::instance()->slug( $this->namespace );
+            $this->slug = \Web::instance()->slug($this->namespace);
         }
         
         // TODO Put this in beforeSave, to ensure that the slug is clean
-        //$this->slug = \Web::instance()->slug( $this->slug );
+        // $this->slug = \Web::instance()->slug( $this->slug );
         
         return parent::beforeValidate();
     }
 
     /**
-     * 
+     *
      * @return Ambigous <multitype:multitype: , unknown>
      */
     public function grouped()
@@ -134,13 +166,11 @@ class Events extends \Dsc\Mongo\Collections\Describable
                 {
                     $grouped[$item->type] = array();
                 }
-        
+                
                 $grouped[$item->type][] = $item;
             }
         }
         
         return $grouped;
     }
-
-     
 }

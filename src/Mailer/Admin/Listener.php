@@ -30,20 +30,32 @@ class Listener extends \Prefab
                 ),
                 */
                 array(
-                    'title' => 'Emails',
+                    'title' => 'Email Templates',
+                    'route' => './admin/mailer/templates',
+                    'icon' => 'fa fa-list'
+                ),
+                array(
+                    'title' => 'Content Blocks',
+                    'route' => './admin/mailer/blocks',
+                    'icon' => 'fa fa-list'
+                ),
+                array(
+                    'title' => 'Sent Emails',
                     'route' => './admin/mailer/emails',
                     'icon' => 'fa fa-list'
                 ),
+                /* Admins don't need to see this and shouldn't be able to edit event names
             	array(
             		'title' => 'Events',
             		'route' => './admin/mailer/events',
             		'icon' => 'fa fa-list'
             	),
-            		array(
-            				'title' => 'Blocks',
-            				'route' => './admin/mailer/blocks',
-            				'icon' => 'fa fa-list'
-            		),
+            	*/
+                array(
+                    'title' => 'Register Emails',
+                    'route' => './admin/mailer/registerEmails',
+                    'icon' => 'fa fa-envelope'
+                ),                
                 array(
                     'title' => 'Settings',
                     'route' => './admin/mailer/settings',

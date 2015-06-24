@@ -195,7 +195,8 @@ class Factory extends \Dsc\Singleton
 	/*
 	 * 
 	 */
-	public static function getEmailContents($eventName, $options = array()) {
+	public static function getEmailContents($eventName, $options = array()) 
+	{
 		try {
 			
 			//fetch the event from mongo
