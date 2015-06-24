@@ -17,7 +17,7 @@ class Events extends \Dsc\Mongo\Collections\Describable
 
     protected $__config = array(
         'default_sort' => array(
-            'type' => 1,
+            'app' => 1,
             'title' => 1
         )
     );

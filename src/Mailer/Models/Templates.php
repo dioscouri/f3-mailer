@@ -22,6 +22,8 @@ class Templates extends \Dsc\Mongo\Collections\Content
         )
     );
     
+    protected $__enable_trash = true;
+    
     protected function fetchConditions()
     {
         parent::fetchConditions();
