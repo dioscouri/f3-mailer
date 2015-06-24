@@ -10,6 +10,9 @@ class Sender extends \PHPMailer
     
     protected $type = 'mail';
     
+    public $From = null;
+    public $FromName = null;
+    
     public function __construct($exceptions = true)
     {
         parent::__construct($exceptions);
@@ -35,15 +38,21 @@ class Sender extends \PHPMailer
      */
     public function init()
     {
-        if ($from_name = $this->settings()->{'general.from_name'})
+        if (empty($this->FromName)) 
         {
-            $this->FromName = $from_name;
+            if ($from_name = $this->settings()->{'general.from_name'})
+            {
+                $this->FromName = $from_name;
+            }            
         }
         
-        if ($from_email = $this->settings()->{'general.from_email'})
+        if (empty($this->From))
         {
-            $this->From = $from_email;
-        }
+            if ($from_email = $this->settings()->{'general.from_email'})
+            {
+                $this->From = $from_email;
+            }        
+        }        
         
         // TODO Add this as a config setting
         $this->IsHTML(true);
