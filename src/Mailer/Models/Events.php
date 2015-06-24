@@ -128,7 +128,7 @@ class Events extends \Dsc\Mongo\Collections\Describable
         
         return [
             'subject' => $subject,
-            'content' => [
+            'body' => [
                 $html,
                 $text
             ],
