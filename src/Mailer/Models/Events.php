@@ -89,7 +89,17 @@ class Events extends \Dsc\Mongo\Collections\Describable
         {
             // Implement the round-robin logic here 
             // to return the template least recently used 
-            $template = (new \Mailer\Models\Templates)->setState('filter.event', $this->id)->setState('filter.publication_status', 'published')->getItem();
+            $templates = (new \Mailer\Models\Templates)
+                ->setState('filter.event', $this->id)
+                ->setState('filter.publication_status', 'published')
+                ->setState('list.sort', array('last_used' => 1))
+                ->setState('list.limit', 1)
+                ->getItems();
+            
+            $template = null;
+            if (!empty($templates)) {
+                $template = $templates[0];
+            }
             
             if (empty($template->id)) {
                 $template = $this;

@@ -18,7 +18,7 @@ class Templates extends \Dsc\Mongo\Collections\Content
     
     protected $__config = array(
         'default_sort' => array(
-            'last_used' => -1
+            'title' => 1
         )
     );
     
