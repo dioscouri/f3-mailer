@@ -71,7 +71,7 @@
         <h3>Blocks</h3>
       	<ul class="list-group">
         <?php foreach ((new \Mailer\Models\Blocks)->find() as $doc) :?>
-        <li class="list-group-item">{{ @<?php echo $doc['key']; ?> }}</li>
+        <li class="list-group-item">{{@<?php echo $doc['key']; ?>}}</li>
         <?php endforeach;?>
         </ul>
         
