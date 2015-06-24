@@ -34,7 +34,7 @@ class Templates extends \Dsc\Mongo\Collections\Content
             $this->setCondition('namespace', $filter_namespace);
         }
     
-        $filter_event_id = $this->getState('filter.event');
+        $filter_event_id = $this->getState('filter.event_id');
         if (strlen($filter_event_id))
         {
             $this->setCondition('event_id', new \MongoId( (string) $filter_event_id ) );

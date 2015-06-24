@@ -45,7 +45,7 @@
                         <?php
                         foreach (\Mailer\Models\Events::find() as $event) {
                             ?>
-                            <option value="<?php echo $event->id; ?>" <?php if ((string) $event->id == (string) $state->get('filter.event_id')) { echo "selected"; } ?>> <?php echo $event->event_name; ?></option>
+                            <option value="<?php echo $event->id; ?>" <?php if ((string) $event->id == (string) $state->get('filter.event_id')) { echo "selected"; } ?>> <?php echo $event->app; ?> |  <?php echo $event->title; ?></option>
                             <?php
                         } 
                         ?>                    			
