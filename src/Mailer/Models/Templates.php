@@ -48,6 +48,8 @@ class Templates extends \Dsc\Mongo\Collections\Content
         {
             throw new \Exception('Event Id is required');
         }
+        
+        $this->event_id = new \MongoId( (string) $this->event_id );
     
         // TODO Put this in beforeSave, to ensure that the slug is clean
         //$this->slug = \Web::instance()->slug( $this->slug );
