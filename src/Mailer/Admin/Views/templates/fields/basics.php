@@ -52,7 +52,7 @@
         
          <div class="form-group">
             <label>Email Body - HTML Version</label>
-            <textarea required name="event_html" class="form-control wysiwyg"><?php echo $flash->old('event_html'); ?></textarea>
+            <textarea required name="event_html" class="form-control " rows="20"><?php echo $flash->old('event_html'); ?></textarea>
         </div>
         
         <div class="form-group">

@@ -90,7 +90,7 @@ class Events extends \Dsc\Mongo\Collections\Describable
             // Implement the round-robin logic here 
             // to return the template least recently used 
             $templates = (new \Mailer\Models\Templates)
-                ->setState('filter.event', $this->id)
+                ->setState('filter.event_id', $this->id)
                 ->setState('filter.publication_status', 'published')
                 ->setState('list.sort', array('last_used' => 1))
                 ->setState('list.limit', 1)
@@ -137,7 +137,11 @@ class Events extends \Dsc\Mongo\Collections\Describable
                 $text
             ],
             'fromEmail' => $template->from_email ? $template->from_email : null,
-            'fromName' => $template->from_name ? $template->from_name : null
+            'fromName' => $template->from_name ? $template->from_name : null,
+        	'cc' => $template->cc ? $template->cc : null,
+        	'bcc' => $template->bcc ? $template->bcc : null,
+        	'replyToName' => $template->replyto_name ? $template->replyto_name : null,
+        	'replyToEmail' => $template->replyto_email ? $template->replyto_email : null
         ];
     }
 

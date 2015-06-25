@@ -163,6 +163,21 @@ class Factory extends \Dsc\Singleton
 	}
 	
 	/**
+	 * Simple Alais for sending mail from event
+	 *
+	 * @param \Mailer\Abstracts\Sender $sender
+	 * @return \Mailer\Factory
+	 */
+	
+	public function sendEvent($email, array $content) {
+		
+		static::send($email,  $content['subject'], $content['body'], $content['fromEmail'], $content['fromName'], true, $content['cc'], $content['bcc'], $content['replyToEmail'], $content['replyToName'] );
+		
+		
+	}
+	
+	
+	/**
 	 * Sets the global sender object if it's valid 
 	 * 
 	 * @param \Mailer\Abstracts\Sender $sender
@@ -217,8 +232,7 @@ class Factory extends \Dsc\Singleton
 			
 			$blocks = (new \Mailer\Models\Blocks)->getList();
 			
-			//TODO add a varibles definer in the CMS probably useing xeditable
-			// This isn't really necessary.  Blocks are enough.  Just display the defaults in the admin
+			//adding a base URL, you can be overriden with a block
 			\Base::instance()->set('base_url', \Base::instance()->get('SCHEME') . '://' . \Base::instance()->get('HOST') . \Base::instance()->get('BASE'));
 			
 			foreach ($blocks as $block) 

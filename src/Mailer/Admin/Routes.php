@@ -32,6 +32,11 @@ class Routes extends \Dsc\Routes\Group
             'action' => 'saveFromEvent'
         ) );
         
+        $this->add( '/template/preview/@id', 'GET|POST', array(
+        		'controller' => 'Preview',
+        		'action' => 'index'
+        ) );
+        
         $this->add( '/contentvariants/quickadd/@id', 'GET', array(
         		'controller' => 'ContentVariant',
         		'action' => 'quickAdd'

@@ -28,6 +28,8 @@ jQuery(document).ready(function(){
             </div>                          
             &nbsp;
             <a class="btn btn-default" href="./admin/mailer/templates">Cancel</a>
+            <a href="#" class="btn btn-info" onClick="window.open('/admin/mailer/template/preview/<?php echo $flash->old('_id'); ?>','Preview','resizable,height=1000,width=700'); return false;">Preview</a>
+
         </div>
 
     </div>
