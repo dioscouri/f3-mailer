@@ -37,6 +37,11 @@ class Routes extends \Dsc\Routes\Group
         		'action' => 'index'
         ) );
         
+        $this->add( '/template/preview/@id/email', 'GET|POST', array(
+        		'controller' => 'Preview',
+        		'action' => 'email'
+        ) );
+        
         $this->add( '/contentvariants/quickadd/@id', 'GET', array(
         		'controller' => 'ContentVariant',
         		'action' => 'quickAdd'
