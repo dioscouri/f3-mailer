@@ -12,6 +12,7 @@ class Preview extends \Admin\Controllers\BaseAuth
         
         $templateModel = (new \Mailer\Models\Templates)->setState('filter.id', $id);
     
+       
         try {
             $template = $templateModel->getItem();
             
@@ -20,21 +21,23 @@ class Preview extends \Admin\Controllers\BaseAuth
             }
             //get the event
             $event = (new \Mailer\Models\Events)->setState('filter.id', $template->event_id)->getItem();
+            
             $listenerEvent = 'mailerPreview';
             $parts = explode('.',$event->event_name);
             foreach($parts as $part) {
             	$listenerEvent .= ucfirst($part);
             }
-                       
+            
             //the preview event should return the variables
             $results = \Dsc\System::instance()->trigger($listenerEvent);
-         
+          
             $variables = $results->getArgument('variables');
             $view = \Dsc\System::instance()->get('theme');
+
             if(!empty($variables)) {
             	
             	$contents = \Mailer\Factory::getEmailContents( $event->event_name,$variables);
-            	
+          
             	$this->app->set('contents', $contents); 
             	
             	echo $view->renderView('Mailer/Admin/Views::preview/index.php');

@@ -170,10 +170,7 @@ class Factory extends \Dsc\Singleton
 	 */
 	
 	public function sendEvent($email, array $content) {
-		
 		static::send($email,  $content['subject'], $content['body'], $content['fromEmail'], $content['fromName'], true, $content['cc'], $content['bcc'], $content['replyToEmail'], $content['replyToName'] );
-		
-		
 	}
 	
 	
@@ -216,7 +213,7 @@ class Factory extends \Dsc\Singleton
 			
 			//fetch the event from mongo
 			$event = (new \Mailer\Models\Events)->setCondition('event_name', $eventName)->getItem();
-			
+	
 			if (empty($event->id)) {
 			    throw new \Exception('Invalid Email Event');
 			}

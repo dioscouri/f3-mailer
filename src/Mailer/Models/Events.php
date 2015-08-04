@@ -91,10 +91,15 @@ class Events extends \Dsc\Mongo\Collections\Describable
             // to return the template least recently used 
             $templates = (new \Mailer\Models\Templates)
                 ->setState('filter.event_id', $this->id)
-                ->setState('filter.publication_status', 'published')
                 ->setState('list.sort', array('last_used' => 1))
-                ->setState('list.limit', 1)
-                ->getItems();
+                ->setState('list.limit', 1);
+               
+            
+            if(\Base::instance()->get('APP_NAME') != 'admin') {
+            	$templates->setState('filter.publication_status', 'published');
+            }
+
+            $templates =  $templates->getItems();
             
             $template = null;
             if (!empty($templates)) {
