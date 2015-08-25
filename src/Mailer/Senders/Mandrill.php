@@ -89,8 +89,8 @@ class Mandrill extends \Mailer\Abstracts\Sender
             "from_name" => $this->FromName,
             "subject" => $this->Subject,
             "to" => $this->convertTo(),
-            "track_opens" => true,
-            "track_clicks" => true,
+            "track_opens" => false,
+            "track_clicks" => false,
             "auto_text" => true
         );
         

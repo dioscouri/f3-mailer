@@ -170,7 +170,7 @@ class Factory extends \Dsc\Singleton
 	 */
 	
 	public function sendEvent($email, array $content) {
-		static::send($email,  $content['subject'], $content['body'], $content['fromEmail'], $content['fromName'], true, $content['cc'], $content['bcc'], $content['replyToEmail'], $content['replyToName'] );
+		static::send($email,  $content['subject'], $content['body'], $content['fromEmail'], $content['fromName'], true, $content['cc'], $content['bcc'], null, $content['replyToEmail'], $content['replyToName'] );
 	}
 	
 	
