@@ -55,5 +55,26 @@
 
 <hr />
 
+<div class="row">
+    <div class="col-md-2">
+        
+        <h3>Tracking</h3>
+                
+    </div>
+    <!-- /.col-md-2 -->
+                
+    <div class="col-md-10">
+    
+        <div class="form-group">
+            <label>Google Analtyics Link URL</label>
+            <input type="text" name="variables[ga]" placeholder="e.g. MyDomain.com" value="<?php echo $flash->old('variables.ga'); ?>" class="form-control" />
+            <p class="help-block">Append this variable to your links to enable tracking</p>
+        </div>
+        
+    </div>
+    <!-- /.col-md-10 -->
+    
+</div>
+<!-- /.row -->
 
 
